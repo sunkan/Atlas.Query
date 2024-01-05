@@ -38,8 +38,13 @@ abstract class Query
         $this->connection = $connection;
         $this->bind = $bind;
 
+        $driver = ucfirst($this->connection->getDriverName());
+        if ($driver === 'Dblib') {
+            $driver = 'Sqlsrv';
+        }
+
         $quoter = 'Atlas\\Query\\Quoter\\'
-            . ucfirst($this->connection->getDriverName())
+            . $driver
             . 'Quoter';
         $this->quoter = new $quoter();
 
