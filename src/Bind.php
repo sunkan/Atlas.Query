@@ -20,6 +20,10 @@ class Bind
 
     public function value(string $key, $value, int $type = -1) : void
     {
+        if ($value instanceof \BackedEnum) {
+            $value = $value->value;
+        }
+
         if ($type === -1) {
             $type = $this->getType($value);
         }
